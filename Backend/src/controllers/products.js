@@ -46,6 +46,25 @@ export const deleteProductById = async (req, res, next) => {
   }
 };
 
+export const getProductById = async (req, res, next) => {
+  try {
+    const data = await Product.findById(req.params.id);
+    if (!data) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      message: "Get product successfully",
+      data,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const updateProductById = async (req, res, next) => {
   try {
     const data = await Product.findByIdAndUpdate(req.params.id, req.body, {
