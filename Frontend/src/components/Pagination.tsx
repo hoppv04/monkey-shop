@@ -28,7 +28,12 @@ const Pagination = ({ currentPage, totalPages = 10, onPageChange }: Props) => {
             </button>
           </li>
           {generateNoOfPages().map((pageItem) => (
-            <li className="page-item" key={pageItem}>
+            <li
+              className={`page-item ${
+                currentPage === pageItem ? "active" : ""
+              }`}
+              key={pageItem}
+            >
               <button
                 className="page-link"
                 onClick={() => onPageChange(pageItem)}

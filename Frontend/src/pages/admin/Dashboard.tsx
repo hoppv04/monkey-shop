@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { ProductI } from "../../interfaces/Product";
+import Pagination from "../../components/Pagination";
+import { useState } from "react";
 
 type Props = {
   products: ProductI[];
@@ -7,6 +9,20 @@ type Props = {
 };
 
 const Dashboard = ({ products, handleDeleteProduct }: Props) => {
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const itemsPerPage: number = 10;
+  const indexOfLastItem: number = currentPage * itemsPerPage;
+  const indexOfFirstItem: number = indexOfLastItem - itemsPerPage;
+  const currentListOfItems: ProductI[] = products.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
+  const handlePageChange = (currentPage: number) => {
+    setCurrentPage(currentPage);
+  };
+
   return (
     <>
       <h2>Hello Admin</h2>
@@ -25,7 +41,7 @@ const Dashboard = ({ products, handleDeleteProduct }: Props) => {
           </tr>
         </thead>
         <tbody>
-          {products.map((product, index) => (
+          {currentListOfItems.map((product, index) => (
             <tr key={product._id}>
               <th>{index + 1}</th>
               <td>{product.title}</td>
@@ -52,6 +68,11 @@ const Dashboard = ({ products, handleDeleteProduct }: Props) => {
           ))}
         </tbody>
       </table>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={Math.ceil(products.length / itemsPerPage)}
+        onPageChange={handlePageChange}
+      />
     </>
   );
 };

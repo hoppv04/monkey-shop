@@ -13,7 +13,10 @@ const Home = ({ products }: Props) => {
   const itemsPerPage: number = 12;
   const indexOfLastItem: number = currentPage * itemsPerPage;
   const indexOfFirstItem: number = indexOfLastItem - itemsPerPage;
-  const currentListOfItems = products.slice(indexOfFirstItem, indexOfLastItem);
+  const currentListOfItems: ProductI[] = products.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   const handlePageChange = (currentPage: number) => {
     setCurrentPage(currentPage);
