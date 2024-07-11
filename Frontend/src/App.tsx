@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import instance from "./apis";
 import ProductForm from "./pages/admin/ProductForm";
+import Home from "./pages/Home";
 
 function App() {
   const [products, setProducts] = useState<ProductI[]>([] as ProductI[]);
@@ -52,9 +53,10 @@ function App() {
       <Header />
       <main className="container">
         <Routes>
-          <Route index element={<div>Home</div>} />
           <Route path="/login" element={<div>Login</div>} />
           <Route path="/register" element={<div>Register</div>} />
+
+          <Route index element={<Home products={products} />} />
 
           <Route
             path="/admin"
