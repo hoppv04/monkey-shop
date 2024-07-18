@@ -15,11 +15,7 @@ productRouter.get("/", getAllProducts);
 productRouter.get("/:id", getProductById);
 
 productRouter.post("/", validBodyRequest(productSchema), createProduct);
-productRouter.delete(
-  "/:id",
-  validBodyRequest(productSchema),
-  deleteProductById
-);
-productRouter.patch("/:id", updateProductById);
+productRouter.patch("/:id", validBodyRequest(productSchema), updateProductById);
+productRouter.delete("/:id", deleteProductById);
 
 export default productRouter;
