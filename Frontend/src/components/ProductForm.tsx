@@ -1,10 +1,10 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import { ProductI } from "../../interfaces/Product";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { productSchema } from "../../utils/productSchema";
-import { useEffect } from "react";
-import instance from "../../apis";
+import { ProductI } from "../interfaces/Product";
+import { productSchema } from "../utils/validation";
+import instance from "../apis";
 
 type Props = {
   handleSubmitProduct: (data: ProductI) => void;
@@ -36,7 +36,7 @@ const ProductForm = ({ handleSubmitProduct }: Props) => {
   }, [id, reset]);
 
   return (
-    <div className="container d-flex justify-content-center">
+    <div className="container d-flex justify-content-center p-4">
       <form
         className="w-50"
         onSubmit={handleSubmit((data) =>

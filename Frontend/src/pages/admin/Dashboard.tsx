@@ -25,7 +25,6 @@ const Dashboard = ({ products, handleDeleteProduct }: Props) => {
 
   return (
     <>
-      <h2>Hello Admin</h2>
       <Link to={`/admin/product-form`} className="btn btn-primary mb-3">
         + Add a product
       </Link>
