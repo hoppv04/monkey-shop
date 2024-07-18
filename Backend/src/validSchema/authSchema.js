@@ -13,3 +13,11 @@ export const authSchema = Joi.object({
     "string.max": "Password must have at most 255 characters",
   }),
 });
+
+export const forgotPasswordSchema = Joi.object({
+  email: Joi.string().required().email().messages({
+    "string.base": "Email must be a string",
+    "string.empty": "Email cannot be empty",
+    "string.email": "Email must be a valid email",
+  }),
+});
