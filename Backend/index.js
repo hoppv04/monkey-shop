@@ -13,21 +13,19 @@ connectDB();
 
 app.use("/api", router);
 
-app.use((req, res) => {
-  res.status(404).json({
-    success: false,
-    message: "Page not found",
-  });
-});
+const errorNotFound = (req, res, next) => {
+  const error = new Error(`Not found`);
+  error.status = 404;
+  next(error);
+};
 
-app.use((error, req, res, next) => {
-  console.error(error);
-  res.status(500).json({
-    success: false,
-    message: "Internal sever error",
+const errorCommon = (err, req, res, next) => {
+  return res.status(err.status || 500).json({
+    message: err.message || "Server Error",
   });
-});
+};
 
+app.use(errorNotFound, errorCommon);
 app.listen(PORT | 8000, () => {
   console.log(`Server is running on port ${PORT | "8000"}`);
 });
