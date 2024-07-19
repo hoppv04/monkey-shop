@@ -1,19 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Pagination from "../components/Pagination";
 import ProductCard from "../components/ProductCard";
 import { ProductI } from "../interfaces/Product";
+import { ProductContext, ProductContextType } from "../contexts/ProductContext";
 
-type Props = {
-  products: ProductI[];
-};
-
-const Home = ({ products }: Props) => {
+const Home = () => {
+  const { state } = useContext(ProductContext) as ProductContextType;
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const itemsPerPage: number = 12;
   const indexOfLastItem: number = currentPage * itemsPerPage;
   const indexOfFirstItem: number = indexOfLastItem - itemsPerPage;
-  const currentListOfItems: ProductI[] = products.slice(
+  const currentListOfItems: ProductI[] = state.products.slice(
     indexOfFirstItem,
     indexOfLastItem
   );
@@ -31,7 +29,7 @@ const Home = ({ products }: Props) => {
       </div>
       <Pagination
         currentPage={currentPage}
-        totalPages={Math.ceil(products.length / itemsPerPage)}
+        totalPages={Math.ceil(state.products.length / itemsPerPage)}
         onPageChange={handlePageChange}
       />
     </>

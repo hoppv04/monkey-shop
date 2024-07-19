@@ -13,9 +13,11 @@ const Header = () => {
         </li>
         {userData ? (
           <>
-            <li>
-              <Link to={"/admin"}>Admin</Link>
-            </li>
+            {userData.role === "admin" && (
+              <li>
+                <Link to={"/admin"}>Admin</Link>
+              </li>
+            )}
             <li>Welcome, {userData?.email.split("@")[0]}</li>
             <li>
               <button className="btn btn-secondary" onClick={logout}>

@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const login = (token: string, user: UserI) => {
-    localStorage.setItem("accessToken", JSON.stringify(token));
+    localStorage.setItem("accessToken", token);
     localStorage.setItem("user", JSON.stringify(user));
     setUserData(user);
     nav(user.role === "admin" ? "/admin" : "/");

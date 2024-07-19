@@ -5,7 +5,7 @@ import instance from "../apis";
 import { useAuth } from "../contexts/AuthContext";
 import { UserI } from "../interfaces/User";
 import { loginSchema, registerSchema } from "../utils/validation";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 type Props = {
   isLogin?: boolean;
@@ -44,11 +44,26 @@ const AuthForm = ({ isLogin }: Props) => {
     }
   };
   return (
-    <div className="container d-flex justify-content-center mt-4">
-      <form className="w-50" onSubmit={handleSubmit(handleSubmitAuth)}>
-        <h2 className="text-center">
-          {isLogin ? "Login" : "Register"} product
-        </h2>
+    <div className="container d-flex justify-content-center mt-5">
+      <form
+        className="w-50 border p-4 rounded shadow-sm"
+        onSubmit={handleSubmit(handleSubmitAuth)}
+      >
+        {isLogin ? (
+          <div className="mb-3 d-flex align-items-center justify-content-between">
+            <h2 className="m-0">Login</h2>
+            <Link className="btn btn-secondary" to={"/register"}>
+              Register
+            </Link>
+          </div>
+        ) : (
+          <div className="mb-3 d-flex align-items-center justify-content-between">
+            <h2 className="m-0">Register</h2>
+            <Link className="btn btn-secondary" to={"/login"}>
+              Login
+            </Link>
+          </div>
+        )}
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
             Email

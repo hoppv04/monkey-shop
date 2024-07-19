@@ -1,20 +1,22 @@
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { ProductI } from "../../interfaces/Product";
 import Pagination from "../../components/Pagination";
-import { useState } from "react";
+import {
+  ProductContext,
+  ProductContextType,
+} from "../../contexts/ProductContext";
+import { ProductI } from "../../interfaces/Product";
 
-type Props = {
-  products: ProductI[];
-  handleDeleteProduct: (id: string) => void;
-};
-
-const Dashboard = ({ products, handleDeleteProduct }: Props) => {
+const Dashboard = () => {
+  const { state, handleRemoveProduct } = useContext(
+    ProductContext
+  ) as ProductContextType;
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const itemsPerPage: number = 10;
   const indexOfLastItem: number = currentPage * itemsPerPage;
   const indexOfFirstItem: number = indexOfLastItem - itemsPerPage;
-  const currentListOfItems: ProductI[] = products.slice(
+  const currentListOfItems: ProductI[] = state.products.slice(
     indexOfFirstItem,
     indexOfLastItem
   );
@@ -57,7 +59,7 @@ const Dashboard = ({ products, handleDeleteProduct }: Props) => {
                   Update
                 </Link>
                 <button
-                  onClick={() => handleDeleteProduct(product._id!)}
+                  onClick={() => handleRemoveProduct(product._id)}
                   className="btn btn-danger"
                 >
                   Delete
@@ -69,7 +71,7 @@ const Dashboard = ({ products, handleDeleteProduct }: Props) => {
       </table>
       <Pagination
         currentPage={currentPage}
-        totalPages={Math.ceil(products.length / itemsPerPage)}
+        totalPages={Math.ceil(state.products.length / itemsPerPage)}
         onPageChange={handlePageChange}
       />
     </>
