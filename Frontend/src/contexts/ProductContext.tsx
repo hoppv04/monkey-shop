@@ -42,6 +42,7 @@ const ProductProvider = ({ children }: { children: React.ReactNode }) => {
 
   const handleSubmitProduct = async (product: ProductI) => {
     try {
+      console.log(product);
       if (product._id) {
         const { data } = await instance.patch(`products/${product._id}`, {
           ...product,

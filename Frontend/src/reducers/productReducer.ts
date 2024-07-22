@@ -5,10 +5,31 @@ type State = {
   products: ProductI[];
 };
 
-type Action = {
-  type: string;
-  payload: any;
+type GetProductsAction = {
+  type: "GET_PRODUCTS";
+  payload: ProductI[];
 };
+
+type AddProductAction = {
+  type: "ADD_PRODUCT";
+  payload: ProductI;
+};
+
+type UpdateProductAction = {
+  type: "UPDATE_PRODUCT";
+  payload: ProductI;
+};
+
+type RemoveProductAction = {
+  type: "REMOVE_PRODUCT";
+  payload?: string;
+};
+
+type Action =
+  | GetProductsAction
+  | AddProductAction
+  | UpdateProductAction
+  | RemoveProductAction;
 
 const productReducer = (state: State, action: Action) => {
   switch (action.type) {

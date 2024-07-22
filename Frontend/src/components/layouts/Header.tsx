@@ -18,7 +18,7 @@ const Header = () => {
                 <Link to={"/admin"}>Admin</Link>
               </li>
             )}
-            <li>Welcome, {userData?.email.split("@")[0]}</li>
+            <li>Welcome, {userData?.email?.split("@")[0]}</li>
             <li>
               <button className="btn btn-secondary" onClick={logout}>
                 Logout

@@ -4,6 +4,12 @@ export const productSchema = z.object({
   title: z.string().trim().min(6),
   price: z.number().min(0),
   description: z.string().optional(),
+  category: z.string().optional(),
+});
+
+export const categorySchema = z.object({
+  title: z.string().min(6),
+  description: z.string().optional(),
 });
 
 export const loginSchema = z.object({

@@ -27,7 +27,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <Link to={`/admin/product-form`} className="btn btn-primary mb-3">
+      <Link to={`/admin/product-add`} className="btn btn-primary mb-3">
         + Add a product
       </Link>
       <table className="table table-bordered table-striped">
@@ -36,6 +36,7 @@ const Dashboard = () => {
             <th>#</th>
             <th>Title</th>
             <th>Price</th>
+            <th>Category</th>
             <th>Description</th>
             <th>Thumbnail</th>
             <th>Action</th>
@@ -47,13 +48,14 @@ const Dashboard = () => {
               <th>{index + 1}</th>
               <td>{product.title}</td>
               <td>{product.price}</td>
+              <td>{product.category?.title}</td>
               <td>{product.description}</td>
               <td>
                 <img src={product.thumbnail} alt={product.title} width={120} />
               </td>
               <td>
                 <Link
-                  to={`/admin/product-form/${product._id}`}
+                  to={`/admin/product-update/${product._id}`}
                   className="btn btn-warning me-2"
                 >
                   Update

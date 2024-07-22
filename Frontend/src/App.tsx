@@ -6,6 +6,8 @@ import LayoutClient from "./components/LayoutClient";
 import ProductForm from "./components/ProductForm";
 import Dashboard from "./pages/admin/Dashboard";
 import Home from "./pages/Home";
+import CategoryList from "./components/CategoryList";
+import CategoryForm from "./components/CategoryForm";
 
 function App() {
   return (
@@ -20,8 +22,12 @@ function App() {
 
         <Route path="/admin" element={<LayoutAdmin />}>
           <Route index element={<Dashboard />} />
-          <Route path="/admin/product-form" element={<ProductForm />} />
-          <Route path="/admin/product-form/:id" element={<ProductForm />} />
+          <Route path="/admin/product-add" element={<ProductForm />} />
+          <Route path="/admin/product-update/:id" element={<ProductForm />} />
+
+          <Route path="/admin/categories" element={<CategoryList />} />
+          <Route path="/admin/category-add" element={<CategoryForm />} />
+          <Route path="/admin/category-update/:id" element={<CategoryForm />} />
         </Route>
       </Routes>
     </>
