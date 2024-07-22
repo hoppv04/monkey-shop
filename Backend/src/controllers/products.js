@@ -1,13 +1,23 @@
 import Product from "../models/Product.js";
+import Category from "../models/Category.js";
 
 export const createProduct = async (req, res, next) => {
   try {
     const data = await Product.create(req.body);
-    return res.status(201).json({
-      success: true,
-      message: "Create product successfully",
-      data,
-    });
+    if (data) {
+      const updateCategory = await Category.findByIdAndUpdate(
+        req.body.category,
+        { $push: { products: data._id } },
+        { new: true }
+      );
+      if (data && updateCategory) {
+        return res.status(201).json({
+          success: true,
+          message: "Create product successfully",
+          data,
+        });
+      }
+    }
   } catch (error) {
     next(error);
   }
@@ -15,7 +25,7 @@ export const createProduct = async (req, res, next) => {
 
 export const getAllProducts = async (req, res, next) => {
   try {
-    const data = await Product.find();
+    const data = await Product.find().populate("category");
     console.log(data);
     return res.status(200).json({
       success: true,
@@ -48,7 +58,7 @@ export const deleteProductById = async (req, res, next) => {
 
 export const getProductById = async (req, res, next) => {
   try {
-    const data = await Product.findById(req.params.id);
+    const data = await Product.findById(req.params.id).populate("category");
     if (!data) {
       return res.status(404).json({
         success: false,
