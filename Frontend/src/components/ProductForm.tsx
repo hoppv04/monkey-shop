@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import instance from "../apis";
@@ -11,6 +11,8 @@ import { CategoryContext } from "../contexts/CategoryContext";
 const ProductForm = () => {
   const { handleSubmitProduct } = useContext(ProductContext);
   const { categories } = useContext(CategoryContext);
+  const [categorySelected, setCategorySelected] = useState<string>("");
+
   const {
     register,
     handleSubmit,
@@ -27,14 +29,20 @@ const ProductForm = () => {
       (async () => {
         try {
           const { data } = await instance.get(`products/${id}`);
-          console.log(data.data);
-          reset(data.data);
+          if (data) {
+            setCategorySelected(data?.data?.category?._id);
+            reset(data.data);
+          } else {
+            setCategorySelected("669e4b8525596512d2d0ceec");
+          }
         } catch (error) {
           console.log(error);
         }
       })();
     }
   }, [id, reset]);
+
+  // console.log(categorySelected);
 
   return (
     <div className="container d-flex justify-content-center p-4">
